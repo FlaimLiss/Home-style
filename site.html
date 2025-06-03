@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Мебельный магазин</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+.header {
+  background-color: #d8c3a5;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #555;
+}
+
+.container {
+  display: flex;
+  min-height: calc(100vh - 80px);
+}
+
+/* Левая панель */
+.sidebar {
+  width: 250px;
+  background-color: #e8e8e8;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+  margin: 10px;
+  border-radius: 8px;
+  overflow-y: auto;
+}
+
+/* Правая область: три квадрата */
+.right-area {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  padding: 20px;
+}
+
+/* Центральный большой квадрат */
+.center-square {
+  flex: 2; /* Большой размер */
+  background-color: #d8c3a5;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Маленькие квадраты справа */
+.side-square {
+  flex: 1;
+  background-color: #e8e8e8;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Внутренний контейнер для изображений в центральном квадрате */
+#central-image-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+/* Общее оформление изображений */
+.furniture-img {
+  max-width: 100%;
+  max-height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+  object-fit: contain; /* чтобы сохранялось соотношение */
+}
+
+.furniture-img.active {
+  display: block;
+}
+
+/* Остальные стили */
+.menu-title {
+  font-size: 18px;
+  margin-bottom: 15px;
+  color: #555;
+  border-bottom: 1px solid #d8c3a5;
+  padding-bottom: 5px;
+}
+
+.menu-item {
+  padding: 10px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.menu-item:hover {
+  background-color: #d8c3a5;
+}
+
+.submenu {
+  margin-left: 15px;
+  display: none;
+}
+
+.submenu-item {
+  padding: 8px;
+  margin-bottom: 3px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+  font-size: 14px;
+}
+
+.submenu-item:hover {
+  background-color: #d8c3a5;
+}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="logo">МЕБЕЛЬ ПРЕМИУМ</div>
+</div>
+<div class="container">
+  <div class="sidebar">
+    <div class="menu-title">Категории мебели</div>
+    <div class="menu-item" onclick="toggleSubmenu('sofa')">Диваны ▼</div>
+    <div class="submenu" id="sofa-submenu">
+      <div class="submenu-item" onclick="showFurniture('corner-sofa')">Угловой диван</div>
+      <div class="submenu-item" onclick="showFurniture('convertible-sofa')">Раскладной диван</div>
+      <div class="submenu-item" onclick="showFurniture('classic-sofa')">Классический диван</div>
+    </div>
+    <div class="menu-item" onclick="toggleSubmenu('wardrobe')">Шкафы ▼</div>
+    <div class="submenu" id="wardrobe-submenu">
+      <div class="submenu-item" onclick="showFurniture('sliding-wardrobe')">Шкаф-купе</div>
+      <div class="submenu-item" onclick="showFurniture('classic-wardrobe')">Классический шкаф</div>
+      <div class="submenu-item" onclick="showFurniture('builtin-wardrobe')">Встроенный шкаф</div>
+    </div>
+    <div class="menu-item" onclick="toggleSubmenu('table')">Столы ▼</div>
+    <div class="submenu" id="table-submenu">
+      <div class="submenu-item" onclick="showFurniture('dining-table')">Обеденный стол</div>
+      <div class="submenu-item" onclick="showFurniture('office-table')">Офисный стол</div>
+      <div class="submenu-item" onclick="showFurniture('coffee-table')">Журнальный столик</div>
+    </div>
+    <div class="menu-item" onclick="toggleSubmenu('chair')">Стулья ▼</div>
+    <div class="submenu" id="chair-submenu">
+      <div class="submenu-item" onclick="showFurniture('office-chair')">Офисный стул</div>
+      <div class="submenu-item" onclick="showFurniture('dining-chair')">Обеденный стул</div>
+      <div class="submenu-item" onclick="showFurniture('armchair')">Кресло</div>
+    </div>
+    <div class="menu-item" onclick="toggleSubmenu('bed')">Кровати ▼</div>
+    <div class="submenu" id="bed-submenu">
+      <div class="submenu-item" onclick="showFurniture('single-bed')">Односпальная</div>
+      <div class="submenu-item" onclick="showFurniture('double-bed')">Двуспальная</div>
+      <div class="submenu-item" onclick="showFurniture('bunk-bed')">Двухъярусная</div>
+    </div>
+  </div>
+  
+  <div class="right-area">
+    <!-- Большой центральный квадрат -->
+    <div class="center-square" id="central-square">
+      <div id="central-image-container"></div>
+    </div>
+    <!-- Маленькие квадраты справа -->
+    <div class="side-square" id="right-square-1">
+      <!-- Можно оставить пустым -->
+    </div>
+    <div class="side-square" id="right-square-2">
+      <!-- Можно оставить пустым -->
+    </div>
+  </div>
+</div>
+
+<script>
+function toggleSubmenu(type) {
+  const submenu = document.getElementById(`${type}-submenu`);
+  const menuItems = document.querySelectorAll('.menu-item');
+  menuItems.forEach(item => {
+    if (item.nextElementSibling && item.nextElementSibling.id === `${type}-submenu`) {
+      if (submenu.style.display === 'block') {
+        submenu.style.display = 'none';
+        item.textContent = item.textContent.replace('▲', '▼');
+      } else {
+        submenu.style.display = 'block';
+        item.textContent = item.textContent.replace('▼', '▲');
+      }
+    }
+  });
+}
+
+function showFurniture(type) {
+  // Очищаем контейнер
+  const container = document.getElementById('central-image-container');
+  container.innerHTML = '';
+
+  // Создаем изображение
+  const img = document.createElement('img');
+  img.className = 'furniture-img active';
+
+  // Изображения из Pinterest (или подходящие по размеру)
+  const srcMap = {
+    'corner-sofa': 'https://i.pinimg.com/originals/0b/0d/5d/0b0d5d2f7bc7b88d0a6f8d5b0b0b7e8a.jpg', // пример
+    'convertible-sofa': 'https://i.pinimg.com/originals/2f/0e/3b/2f0e3b4c8f7a1a2f3e4b5a6c7d8e9f0a.jpg',
+    'classic-sofa': 'https://i.pinimg.com/originals/8e/5d/7d/8e5d7d8f7a6c5b4a3e2d1f0a9b8c7d6e.jpg',
+
+    'sliding-wardrobe': 'https://i.pinimg.com/originals/1b/7a/3f/1b7a3f9e8d2b4a7f0e9c8d7a6e5b4a3f.jpg',
+    'classic-wardrobe': 'https://i.pinimg.com/originals/4d/2f/1a/4d2f1a9e8c7b6a5f4e3d2c1b0a9f8e7d.jpg',
+    'builtin-wardrobe': 'https://i.pinimg.com/originals/3f/7a/6d/3f7a6d9e8c7b5a4f3e2d1c0b9a8f7d6e.jpg',
+
+    'dining-table': 'https://i.pinimg.com/originals/0a/1b/2c/0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d.jpg',
+    'office-table': 'https://i.pinimg.com/originals/5e/7f/8a/5e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b.jpg',
+    'coffee-table': 'https://i.pinimg.com/originals/9f/8d/7c/9f8d7c6b5a4e3d2c1b0a9f8e7d6c5b4a.jpg',
+
+    'office-chair': 'https://i.pinimg.com/originals/4d/5e/6f/4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a.jpg',
+    'dining-chair': 'https://i.pinimg.com/originals/1a/2b/3c/1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d.jpg',
+    'armchair': 'https://i.pinimg.com/originals/7e/8f/9a/7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b.jpg',
+
+    'single-bed': 'https://i.pinimg.com/originals/2f/3a/4b/2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c.jpg',
+    'double-bed': 'https://i.pinimg.com/originals/6d/7e/8f/6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a.jpg',
+    'bunk-bed': 'https://i.pinimg.com/originals/3c/4d/5e/3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f.jpg'
+  };
+
+  if (srcMap[type]) {
+    img.src = srcMap[type];
+    container.appendChild(img);
+  }
+}
+</script>
+</body>
+</html>
