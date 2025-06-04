@@ -214,14 +214,14 @@ function showFurniture(type) {
   container.innerHTML = '';
 
   // Создаем изображение
-  const jpg = document.createElement('jpg');
-  jpg.className = 'furniture-jpg active';
+  const img = document.createElement('img');
+  img.className = 'furniture-img active';
 
   // Изображения из Pinterest (или подходящие по размеру)
   const srcMap = {
-    'corner-sofa': 'https://i.pinimg.com/originals/0b/0d/5d/0b0d5d2f7bc7b88d0a6f8d5b0b0b7e8a.jpg', // пример
-    'convertible-sofa': 'https://i.pinimg.com/originals/2f/0e/3b/2f0e3b4c8f7a1a2f3e4b5a6c7d8e9f0a.jpg',
-    'classic-sofa': 'https://i.pinimg.com/originals/8e/5d/7d/8e5d7d8f7a6c5b4a3e2d1f0a9b8c7d6e.jpg',
+    'corner-sofa': 'https://i.pinimg.com/originals/0b/0d/5d/0b0d5d2f7bc7b88d0a6f8d5b0b0b7e8a.img', // пример
+    'convertible-sofa': 'https://i.pinimg.com/originals/2f/0e/3b/2f0e3b4c8f7a1a2f3e4b5a6c7d8e9f0a.img',
+    'classic-sofa': 'https://i.pinimg.com/originals/8e/5d/7d/8e5d7d8f7a6c5b4a3e2d1f0a9b8c7d6e.img',
 
     'sliding-wardrobe': 'https://i.pinimg.com/originals/1b/7a/3f/1b7a3f9e8d2b4a7f0e9c8d7a6e5b4a3f.jpg',
     'classic-wardrobe': 'https://i.pinimg.com/originals/4d/2f/1a/4d2f1a9e8c7b6a5f4e3d2c1b0a9f8e7d.jpg',
@@ -241,8 +241,8 @@ function showFurniture(type) {
   };
 
   if (srcMap[type]) {
-    jpg.src = srcMap[type];
-    container.appendChild(jpg);
+    img.src = srcMap[type];
+    container.appendChild(img);
   }
 }
 </script>
