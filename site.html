@@ -214,8 +214,8 @@ function showFurniture(type) {
   container.innerHTML = '';
 
   // Создаем изображение
-  const img = document.createElement('img');
-  img.className = 'furniture-img active';
+  const jpg = document.createElement('jpg');
+  jpg.className = 'furniture-jpg active';
 
   // Изображения из Pinterest (или подходящие по размеру)
   const srcMap = {
@@ -241,8 +241,8 @@ function showFurniture(type) {
   };
 
   if (srcMap[type]) {
-    img.src = srcMap[type];
-    container.appendChild(img);
+    jpg.src = srcMap[type];
+    container.appendChild(jpg);
   }
 }
 </script>
