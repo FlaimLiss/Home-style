@@ -43,61 +43,61 @@ body {
   overflow-y: auto;
 }
 
-/* Правая область: три квадрата */
+/* Правая область, заменена на плитки для мебели */
 .right-area {
   flex: 1;
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap;
   gap: 10px;
   padding: 20px;
+  align-items: flex-start;
 }
 
-/* Центральный большой квадрат */
-.center-square {
-  flex: 2; /* Большой размер */
-  background-color: #d8c3a5;
+/* Плитка для мебели */
+.tile {
+  width: 200px;
+  background-color: #fff;
   border-radius: 8px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
   overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  cursor: pointer;
+  transition: transform 0.2s;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Маленькие квадраты справа */
-.side-square {
-  flex: 1;
-  background-color: #e8e8e8;
+.tile:hover {
+  transform: scale(1.02);
+}
+
+/* Изображение в плитке */
+.tile img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+/* Описание под изображением */
+.tile-info {
+  padding: 10px;
+  font-size: 14px;
+  text-align: center;
+}
+
+/* Всплывающее описание при клике */
+.popup {
+  position: absolute;
+  background: #fff;
+  border: 1px solid #ccc;
   border-radius: 8px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
+  padding: 10px;
+  max-width: 250px;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  display: none;
 }
 
-/* Внутренний контейнер для изображений в центральном квадрате */
-#central-image-container {
-  width: 100%;
-  height: 100%;
-  position: relative;
-}
-
-/* Общее оформление изображений */
-.furniture-img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* или contain, по желанию */
-  margin: 0;
-  padding: 0;
-  border: none;
-}
-
-.furniture-img.active {
-  display: block;
-}
-
-/* Остальные стили */
+/* Общие стили для элементов меню */
 .menu-title {
   font-size: 18px;
   margin-bottom: 15px;
@@ -176,20 +176,13 @@ body {
     </div>
   </div>
   
-  <div class="right-area">
-    <!-- Большой центральный квадрат -->
-    <div class="center-square" id="central-square">
-      <div id="central-image-container"></div>
-    </div>
-    <!-- Маленькие квадраты справа -->
-    <div class="side-square" id="right-square-1">
-      <!-- Можно оставить пустым -->
-    </div>
-    <div class="side-square" id="right-square-2">
-      <!-- Можно оставить пустым -->
-    </div>
+  <div class="right-area" id="furniture-grid">
+    <!-- Плитки для мебели будут вставляться сюда через JS -->
   </div>
 </div>
+
+<!-- Всплывающее окно с информацией -->
+<div id="popup" class="popup"></div>
 
 <script>
 function toggleSubmenu(type) {
@@ -208,43 +201,123 @@ function toggleSubmenu(type) {
   });
 }
 
+// Объект с данными о мебели
+const furnitureData = {
+  'corner-sofa': {
+    img: 'https://cidien.lazurit.com/images/unsafe/fit-in/2000x2000/upload.lazurit.com/upload/iblock/d4f/88ga3kwgv8fxhmfz0ukisbl2jaclehkq/florida2_MaKHKH_560.jpg',
+    description: 'Угловой диван — удобное решение для гостиной.'
+  },
+  'convertible-sofa': {
+    img: 'https://avatars.mds.yandex.net/i?id=523c2a5fa20314e77cc3c20ff87b2831_l-4450142-images-thumbs&n=13',
+    description: 'Раскладной диван для гостиной и спальни.'
+  },
+  'classic-sofa': {
+    img: 'https://i.ebayimg.com/images/g/v9UAAOSwMb9kUj0~/s-l1600.jpg',
+    description: 'Классический диван для уютной гостиной.'
+  },
+  'sliding-wardrobe': {
+    img: 'https://mkmgroup.ru/d/shk103.jpg',
+    description: 'Шкаф-купе с зеркалами.'
+  },
+  'classic-wardrobe': {
+    img: 'https://irice.ru/files/products/7/f/e/7fe633f3dec803ed575efd4272aca87e.jpeg',
+    description: 'Классический шкаф для спальни.'
+  },
+  'builtin-wardrobe': {
+    img: 'https://mkmgroup.ru/thumb/2/6yPUvKunUOysgIlJmrpmVw/1280r/d/vstroennye-shkafy-kupe-20.jpg',
+    description: 'Встроенный шкаф-купе для экономии пространства.'
+  },
+  'dining-table': {
+    img: 'https://avatars.mds.yandex.net/get-mpic/4219828/img_id416056959024383647.jpeg/orig',
+    description: 'Обеденный стол для семейных ужинов.'
+  },
+  'office-table': {
+    img: 'https://i.pinimg.com/originals/c0/c6/a9/c0c6a9b0e97c990ef7337ae2a9a591a9.jpg',
+    description: 'Офисный стол для работы.'
+  },
+  'coffee-table': {
+    img: 'https://cdn1.ozone.ru/s3/multimedia-o/c600/6652991760.jpg',
+    description: 'Журнальный столик для гостиной.'
+  },
+  'office-chair': {
+    img: 'https://m.media-amazon.com/images/I/8100JBXG1dL._AC_UF894,1000_QL80_.jpg',
+    description: 'Комфортный офисный стул.'
+  },
+  'dining-chair': {
+    img: 'https://i.pinimg.com/736x/bb/50/1f/bb501fa0fe30ebc4994607f7156c387d.jpg',
+    description: 'Обеденный стул для кухни.'
+  },
+  'armchair': {
+    img: 'https://goods-photos.static1-sima-land.com/items/6449676/2/1600.jpg?v=1639140803',
+    description: 'Удобное кресло для отдыха.'
+  },
+  'single-bed': {
+    img: 'https://cdn1.ozone.ru/s3/multimedia-r/6790171851.jpg',
+    description: 'Односпальная кровать для спальни.'
+  },
+  'double-bed': {
+    img: 'https://avatars.mds.yandex.net/i?id=3106ac273af649e4dc7fa4aceba1fa6b5178ffd3-11499518-images-thumbs&n=13',
+    description: 'Двуспальная кровать для семьи.'
+  },
+  'bunk-bed': {
+    img: 'https://roomester.ru/wp-content/uploads/2018/06/dvuhyarusnaya-krovat-v-interere-48-25.jpg',
+    description: 'Двухъярусная кровать для детской.'
+  }
+};
+
 function showFurniture(type) {
-  // Очищаем контейнер
-  const container = document.getElementById('central-image-container');
+  const container = document.getElementById('furniture-grid');
   container.innerHTML = '';
 
-  // Создаем изображение
-  const img = document.createElement('img');
-  img.className = 'furniture-img active';
+  if (furnitureData[type]) {
+    const data = furnitureData[type];
 
-  // Изображения из Pinterest (или подходящие по размеру)
-  const srcMap = {
-    'corner-sofa': 'https://cidien.lazurit.com/images/unsafe/fit-in/2000x2000/upload.lazurit.com/upload/iblock/d4f/88ga3kwgv8fxhmfz0ukisbl2jaclehkq/florida2_MaKHKH_560.jpg',
-    'convertible-sofa': 'https://avatars.mds.yandex.net/i?id=523c2a5fa20314e77cc3c20ff87b2831_l-4450142-images-thumbs&n=13',
-    'classic-sofa': 'https://i.ebayimg.com/images/g/v9UAAOSwMb9kUj0~/s-l1600.jpg',
+    // Создаем плитку
+    const tile = document.createElement('div');
+    tile.className = 'tile';
 
-    'sliding-wardrobe': 'https://mkmgroup.ru/d/shk103.jpg',
-    'classic-wardrobe': 'https://irice.ru/files/products/7/f/e/7fe633f3dec803ed575efd4272aca87e.jpeg',
-    'builtin-wardrobe': 'https://mkmgroup.ru/thumb/2/6yPUvKunUOysgIlJmrpmVw/1280r/d/vstroennye-shkafy-kupe-20.jpg',
+    // Изображение
+    const img = document.createElement('img');
+    img.src = data.img;
+    tile.appendChild(img);
 
-    'dining-table': 'https://avatars.mds.yandex.net/get-mpic/4219828/img_id416056959024383647.jpeg/orig',
-    'office-table': 'https://i.pinimg.com/originals/c0/c6/a9/c0c6a9b0e97c990ef7337ae2a9a591a9.jpg',
-    'coffee-table': 'https://cdn1.ozone.ru/s3/multimedia-o/c600/6652991760.jpg',
+    // Информация
+    const info = document.createElement('div');
+    info.className = 'tile-info';
+    info.textContent = data.description;
+    tile.appendChild(info);
 
-    'office-chair': 'https://m.media-amazon.com/images/I/8100JBXG1dL._AC_UF894,1000_QL80_.jpg',
-    'dining-chair': 'https://i.pinimg.com/736x/bb/50/1f/bb501fa0fe30ebc4994607f7156c387d.jpg',
-    'armchair': 'https://goods-photos.static1-sima-land.com/items/6449676/2/1600.jpg?v=1639140803',
+    // Добавляем обработчик клика для отображения всплывающего окна
+    tile.addEventListener('click', (e) => {
+      showPopup(e.pageX, e.pageY, data.description);
+    });
 
-    'single-bed': 'https://cdn1.ozone.ru/s3/multimedia-r/6790171851.jpg',
-    'double-bed': 'https://avatars.mds.yandex.net/i?id=3106ac273af649e4dc7fa4aceba1fa6b5178ffd3-11499518-images-thumbs&n=13',
-    'bunk-bed': 'https://roomester.ru/wp-content/uploads/2018/06/dvuhyarusnaya-krovat-v-interere-48-25.jpg'
-  };
-
-  if (srcMap[type]) {
-    img.src = srcMap[type];
-    container.appendChild(img);
+    container.appendChild(tile);
   }
 }
+
+// Всплывающее окно
+function showPopup(x, y, text) {
+  const popup = document.getElementById('popup');
+  popup.style.left = x + 'px';
+  popup.style.top = y + 'px';
+  popup.innerHTML = text;
+  popup.style.display = 'block';
+
+  // Спрятать через 3 секунды
+  clearTimeout(popup.timeout);
+  popup.timeout = setTimeout(() => {
+    popup.style.display = 'none';
+  }, 3000);
+}
+
+// Закрытие всплывающего при клике вне
+document.addEventListener('click', (e) => {
+  const popup = document.getElementById('popup');
+  if (!popup.contains(e.target) && e.target.className !== 'tile' && e.target.closest('.tile') === null) {
+    popup.style.display = 'none';
+  }
+});
 </script>
 </body>
 </html>
