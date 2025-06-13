@@ -3,319 +3,769 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Домашний стиль</title>
+<title>Modern Home Style</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f5f5f5;
-  color: #333;
+:root {
+  --primary: #3a86ff;
+  --primary-light: #ebf2ff;
+  --dark: #2b2d42;
+  --gray: #8d99ae;
+  --light: #edf2f4;
+  --white: #ffffff;
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --radius: 12px;
+  --transition: all 0.3s ease;
 }
 
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary) var(--light);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--light);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--primary);
+  border-radius: 4px;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--light);
+  color: var(--dark);
+  line-height: 1.6;
+}
+
+/* Header */
 .header {
-  background-color: #d8c3a5;
-  padding: 20px;
+  background-color: var(--white);
+  padding: 16px 5%;
+  box-shadow: var(--shadow);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 }
 
 .logo {
   font-size: 24px;
-  font-weight: bold;
-  color: #555;
-}
-
-.container {
+  font-weight: 700;
+  color: var(--primary);
   display: flex;
-  min-height: calc(100vh - 80px);
+  align-items: center;
+  gap: 8px;
 }
 
-/* Левая панель */
-.sidebar {
-  width: 250px;
-  background-color: #e8e8e8;
-  padding: 20px;
-  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-  margin: 10px;
-  border-radius: 8px;
-  overflow-y: auto;
+.logo-icon {
+  font-size: 28px;
 }
 
-/* Правая область, заменена на плитки для мебели */
-.right-area {
-  flex: 1;
+.contacts {
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  padding: 20px;
-  align-items: flex-start;
+  gap: 24px;
 }
 
-/* Плитка для мебели */
-.tile {
-  width: 200px;
-  background-color: #fff;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  cursor: pointer;
-  transition: transform 0.2s;
+.contact-item {
   display: flex;
-  flex-direction: column;
-}
-
-.tile:hover {
-  transform: scale(1.02);
-}
-
-/* Изображение в плитке */
-.tile img {
-  width: 100%;
-  height: 150px;
-  object-fit: cover;
-}
-
-/* Описание под изображением */
-.tile-info {
-  padding: 10px;
+  align-items: center;
+  gap: 8px;
   font-size: 14px;
-  text-align: center;
+  color: var(--gray);
+  transition: var(--transition);
 }
 
-/* Всплывающее описание при клике */
-.popup {
-  position: absolute;
-  background: #fff;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 10px;
-  max-width: 250px;
-  z-index: 1000;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-  display: none;
+.contact-item:hover {
+  color: var(--primary);
 }
 
-/* Общие стили для элементов меню */
+.contact-icon {
+  font-size: 18px;
+}
+
+/* Main layout */
+.container {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 24px;
+  padding: 24px 5%;
+  min-height: calc(100vh - 72px);
+}
+
+/* Sidebar */
+.sidebar {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow);
+  height: fit-content;
+  position: sticky;
+  top: 88px;
+}
+
 .menu-title {
   font-size: 18px;
-  margin-bottom: 15px;
-  color: #555;
-  border-bottom: 1px solid #d8c3a5;
-  padding-bottom: 5px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: var(--dark);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.menu-title::before {
+  content: '';
+  display: block;
+  width: 4px;
+  height: 18px;
+  background: var(--primary);
+  border-radius: 2px;
 }
 
 .menu-item {
-  padding: 10px;
-  margin-bottom: 5px;
+  padding: 12px 16px;
+  margin-bottom: 8px;
   cursor: pointer;
-  border-radius: 4px;
-  transition: background-color 0.3s;
+  border-radius: 8px;
+  transition: var(--transition);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 500;
 }
 
 .menu-item:hover {
-  background-color: #d8c3a5;
+  background: var(--primary-light);
+  color: var(--primary);
+}
+
+.menu-item.active {
+  background: var(--primary-light);
+  color: var(--primary);
+}
+
+.menu-arrow {
+  transition: var(--transition);
+}
+
+.menu-item.active .menu-arrow {
+  transform: rotate(180deg);
 }
 
 .submenu {
-  margin-left: 15px;
+  margin-left: 8px;
+  margin-top: 4px;
   display: none;
 }
 
+.submenu.show {
+  display: block;
+}
+
 .submenu-item {
-  padding: 8px;
-  margin-bottom: 3px;
+  padding: 10px 16px 10px 24px;
+  margin-bottom: 4px;
   cursor: pointer;
-  border-radius: 4px;
-  transition: background-color 0.3s;
+  border-radius: 6px;
+  transition: var(--transition);
   font-size: 14px;
+  position: relative;
 }
 
 .submenu-item:hover {
-  background-color: #d8c3a5;
+  background: var(--primary-light);
+  color: var(--primary);
+}
+
+.submenu-item::before {
+  content: '';
+  position: absolute;
+  left: 12px;
+  top: 16px;
+  width: 4px;
+  height: 4px;
+  background: var(--gray);
+  border-radius: 50%;
+}
+
+.submenu-item:hover::before {
+  background: var(--primary);
+}
+
+/* Products grid */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+.product-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.product-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.product-info {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.product-title {
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.product-description {
+  font-size: 14px;
+  color: var(--gray);
+  margin-bottom: 12px;
+  flex-grow: 1;
+}
+
+.product-price {
+  font-weight: 700;
+  color: var(--primary);
+  margin-top: auto;
+}
+
+/* Filter section */
+.filter-section {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow);
+}
+
+.filter-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.filter-options {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.filter-tag {
+  padding: 8px 16px;
+  background: var(--light);
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.filter-tag:hover, .filter-tag.active {
+  background: var(--primary);
+  color: var(--white);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .container {
+    grid-template-columns: 1fr;
+  }
+  
+  .sidebar {
+    position: static;
+  }
+  
+  .products-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px;
+  }
+  
+  .contacts {
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  
+  .products-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  }
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--transition);
+}
+
+.modal.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-content {
+  background: var(--white);
+  border-radius: var(--radius);
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 24px;
+  position: relative;
+  transform: translateY(20px);
+  transition: var(--transition);
+}
+
+.modal.show .modal-content {
+  transform: translateY(0);
+}
+
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  font-size: 24px;
+  cursor: pointer;
+  color: var(--gray);
+  transition: var(--transition);
+}
+
+.modal-close:hover {
+  color: var(--primary);
+}
+
+.modal-image {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: var(--radius);
+  margin-bottom: 16px;
+}
+
+.modal-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.modal-price {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 16px;
+}
+
+.modal-description {
+  margin-bottom: 24px;
+  color: var(--gray);
+}
+
+.modal-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.btn {
+  padding: 12px 24px;
+  border-radius: var(--radius);
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+  border: none;
+  font-size: 16px;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: var(--white);
+  flex-grow: 1;
+}
+
+.btn-primary:hover {
+  background: #2a75e6;
+}
+
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--primary);
+  color: var(--primary);
+}
+
+.btn-outline:hover {
+  background: var(--primary-light);
+}
+
+/* Badge */
+.badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: var(--primary);
+  color: var(--white);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
 }
 </style>
 </head>
 <body>
 <div class="header">
-  <div class="logo">Домашний стиль</div>
+  <div class="logo">
+    <span class="logo-icon">🛋️</span>
+    <span>Modern Home</span>
+  </div>
+  <div class="contacts">
+    <div class="contact-item">
+      <span class="contact-icon">📞</span>
+      <span>+7 (999) 123-45-67</span>
+    </div>
+    <div class="contact-item">
+      <span class="contact-icon">✉️</span>
+      <span>info@modernhome.ru</span>
+    </div>
+    <div class="contact-item">
+      <span class="contact-icon">🕒</span>
+      <span>Пн-Пт: 9:00-21:00</span>
+    </div>
+  </div>
 </div>
+
 <div class="container">
   <div class="sidebar">
     <div class="menu-title">Категории мебели</div>
-    <div class="menu-item" onclick="toggleSubmenu('sofa')">Диваны ▼</div>
-    <div class="submenu" id="sofa-submenu">
-      <div class="submenu-item" onclick="showFurniture('corner-sofa')">Угловой диван</div>
-      <div class="submenu-item" onclick="showFurniture('convertible-sofa')">Раскладной диван</div>
-      <div class="submenu-item" onclick="showFurniture('classic-sofa')">Классический диван</div>
+    
+    <div class="menu-item active" onclick="toggleMenu('sofa')">
+      <span>Диваны</span>
+      <span class="menu-arrow">▼</span>
     </div>
-    <div class="menu-item" onclick="toggleSubmenu('wardrobe')">Шкафы ▼</div>
+    <div class="submenu show" id="sofa-submenu">
+      <div class="submenu-item" onclick="filterProducts('corner-sofa')">Угловые диваны</div>
+      <div class="submenu-item" onclick="filterProducts('convertible-sofa')">Раскладные диваны</div>
+      <div class="submenu-item" onclick="filterProducts('classic-sofa')">Классические диваны</div>
+    </div>
+    
+    <div class="menu-item" onclick="toggleMenu('wardrobe')">
+      <span>Шкафы</span>
+      <span class="menu-arrow">▼</span>
+    </div>
     <div class="submenu" id="wardrobe-submenu">
-      <div class="submenu-item" onclick="showFurniture('sliding-wardrobe')">Шкаф-купе</div>
-      <div class="submenu-item" onclick="showFurniture('classic-wardrobe')">Классический шкаф</div>
-      <div class="submenu-item" onclick="showFurniture('builtin-wardrobe')">Встроенный шкаф</div>
+      <div class="submenu-item" onclick="filterProducts('sliding-wardrobe')">Шкафы-купе</div>
+      <div class="submenu-item" onclick="filterProducts('classic-wardrobe')">Классические шкафы</div>
+      <div class="submenu-item" onclick="filterProducts('builtin-wardrobe')">Встроенные шкафы</div>
     </div>
-    <div class="menu-item" onclick="toggleSubmenu('table')">Столы ▼</div>
+    
+    <div class="menu-item" onclick="toggleMenu('table')">
+      <span>Столы</span>
+      <span class="menu-arrow">▼</span>
+    </div>
     <div class="submenu" id="table-submenu">
-      <div class="submenu-item" onclick="showFurniture('dining-table')">Обеденный стол</div>
-      <div class="submenu-item" onclick="showFurniture('office-table')">Офисный стол</div>
-      <div class="submenu-item" onclick="showFurniture('coffee-table')">Журнальный столик</div>
+      <div class="submenu-item" onclick="filterProducts('dining-table')">Обеденные столы</div>
+      <div class="submenu-item" onclick="filterProducts('office-table')">Офисные столы</div>
+      <div class="submenu-item" onclick="filterProducts('coffee-table')">Журнальные столики</div>
     </div>
-    <div class="menu-item" onclick="toggleSubmenu('chair')">Стулья ▼</div>
+    
+    <div class="menu-item" onclick="toggleMenu('chair')">
+      <span>Стулья</span>
+      <span class="menu-arrow">▼</span>
+    </div>
     <div class="submenu" id="chair-submenu">
-      <div class="submenu-item" onclick="showFurniture('office-chair')">Офисный стул</div>
-      <div class="submenu-item" onclick="showFurniture('dining-chair')">Обеденный стул</div>
-      <div class="submenu-item" onclick="showFurniture('armchair')">Кресло</div>
+      <div class="submenu-item" onclick="filterProducts('office-chair')">Офисные стулья</div>
+      <div class="submenu-item" onclick="filterProducts('dining-chair')">Обеденные стулья</div>
+      <div class="submenu-item" onclick="filterProducts('armchair')">Кресла</div>
     </div>
-    <div class="menu-item" onclick="toggleSubmenu('bed')">Кровати ▼</div>
+    
+    <div class="menu-item" onclick="toggleMenu('bed')">
+      <span>Кровати</span>
+      <span class="menu-arrow">▼</span>
+    </div>
     <div class="submenu" id="bed-submenu">
-      <div class="submenu-item" onclick="showFurniture('single-bed')">Односпальная</div>
-      <div class="submenu-item" onclick="showFurniture('double-bed')">Двуспальная</div>
-      <div class="submenu-item" onclick="showFurniture('bunk-bed')">Двухъярусная</div>
+      <div class="submenu-item" onclick="filterProducts('single-bed')">Односпальные</div>
+      <div class="submenu-item" onclick="filterProducts('double-bed')">Двуспальные</div>
+      <div class="submenu-item" onclick="filterProducts('bunk-bed')">Двухъярусные</div>
     </div>
   </div>
   
-  <div class="right-area" id="furniture-grid">
-    <!-- Плитки для мебели будут вставляться сюда через JS -->
+  <div class="main-content">
+    <div class="filter-section">
+      <div class="filter-title">Фильтры</div>
+      <div class="filter-options">
+        <div class="filter-tag active" onclick="filterProducts('all')">Все</div>
+        <div class="filter-tag" onclick="filterByTag('hit')">Хиты</div>
+        <div class="filter-tag" onclick="filterByTag('new')">Новинки</div>
+        <div class="filter-tag" onclick="filterByTag('sale')">Акции</div>
+        <div class="filter-tag" onclick="filterByTag('premium')">Премиум</div>
+      </div>
+    </div>
+    
+    <div class="products-grid" id="products-grid">
+      <!-- Товары будут загружены через JavaScript -->
+    </div>
   </div>
 </div>
 
-<!-- Всплывающее окно с информацией -->
-<div id="popup" class="popup"></div>
+<!-- Модальное окно -->
+<div class="modal" id="product-modal">
+  <div class="modal-content">
+    <span class="modal-close" onclick="closeModal()">×</span>
+    <img class="modal-image" id="modal-image" src="" alt="">
+    <div class="badge" id="modal-badge">Хит</div>
+    <h2 class="modal-title" id="modal-title"></h2>
+    <div class="modal-price" id="modal-price"></div>
+    <p class="modal-description" id="modal-description"></p>
+    <div class="modal-actions">
+      <button class="btn btn-outline">В избранное</button>
+      <button class="btn btn-primary">Купить</button>
+    </div>
+  </div>
+</div>
 
 <script>
-function toggleSubmenu(type) {
-  const submenu = document.getElementById(`${type}-submenu`);
-  const menuItems = document.querySelectorAll('.menu-item');
-  menuItems.forEach(item => {
-    if (item.nextElementSibling && item.nextElementSibling.id === `${type}-submenu`) {
-      if (submenu.style.display === 'block') {
-        submenu.style.display = 'none';
-        item.textContent = item.textContent.replace('▲', '▼');
-      } else {
-        submenu.style.display = 'block';
-        item.textContent = item.textContent.replace('▼', '▲');
-      }
-    }
+// Данные о товарах
+const products = [
+  {
+    id: 'corner-sofa',
+    title: 'Угловой диван "Милан"',
+    description: 'Современный угловой диван с механизмом трансформации и ящиком для белья',
+    price: '45 990 ₽',
+    image: 'https://mebelvia.ru/upload/iblock/0e9/0e9e8a4d1b6f2e8e5f4d3c2b1a0f9e8d.jpg',
+    category: 'sofa',
+    tags: ['hit']
+  },
+  {
+    id: 'convertible-sofa',
+    title: 'Диван "Барселона"',
+    description: 'Раскладной диван с ортопедическим матрасом, механизм "еврокнижка"',
+    price: '32 490 ₽',
+    image: 'https://mebelvia.ru/upload/iblock/1e9/1e9e8a4d1b6f2e8e5f4d3c2b1a0f9e8d.jpg',
+    category: 'sofa',
+    tags: ['new']
+  },
+  {
+    id: 'classic-sofa',
+    title: 'Диван "Классик"',
+    description: 'Элегантный диван в классическом стиле с деревянными ножками',
+    price: '38 750 ₽',
+    image: 'https://mebelvia.ru/upload/iblock/2e9/2e9e8a4d1b6f2e8e5f4d3c2b1a0f9e8d.jpg',
+    category: 'sofa',
+    tags: []
+  },
+  {
+    id: 'sliding-wardrobe',
+    title: 'Шкаф-купе "Гламур"',
+    description: 'Вместительный шкаф-купе с зеркальными дверями и внутренней подсветкой',
+    price: '67 800 ₽',
+    image: 'https://mebelvia.ru/upload/iblock/3e9/3e9e8a4d1b6f2e8e5f4d3c2b1a0f9e8d.jpg',
+    category: 'wardrobe',
+    tags: ['premium']
+  },
+  {
+    id: 'dining-table',
+    title: 'Стол обеденный "Лофт"',
+    description: 'Деревянный стол на металлическом каркасе, размер 160×90 см',
+    price: '24 990 ₽',
+    image: 'https://mebelvia.ru/upload/iblock/4e9/4e9e8a4d1b6f2e8e5f4d3c2b1a0f9e8d.jpg',
+    category: 'table',
+    tags: ['hit']
+  },
+  {
+    id: 'office-chair',
+    title: 'Кресло офисное "Эрго"',
+    description: 'Эргономичное офисное кресло с регулировкой высоты и подлокотников',
+    price: '15 490 ₽',
+    image: 'https://mebelvia.ru/upload/iblock/5e9/5e9e8a4d1b6f2e8e5f4d3c2b1a0f9e8d.jpg',
+    category: 'chair',
+    tags: ['sale']
+  },
+  {
+    id: 'double-bed',
+    title: 'Кровать "Гранд"',
+    description: 'Двуспальная кровать с мягким изголовьем и ящиками для хранения',
+    price: '52 300 ₽',
+    image: 'https://mebelvia.ru/upload/iblock/6e9/6e9e8a4d1b6f2e8e5f4d3c2b1a0f9e8d.jpg',
+    category: 'bed',
+    tags: ['new', 'premium']
+  }
+];
+
+// Инициализация страницы
+document.addEventListener('DOMContentLoaded', function() {
+  renderProducts(products);
+});
+
+// Рендер товаров
+function renderProducts(productsToRender) {
+  const grid = document.getElementById('products-grid');
+  grid.innerHTML = '';
+  
+  if (productsToRender.length === 0) {
+    grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;">Товары не найдены</p>';
+    return;
+  }
+  
+  productsToRender.forEach(product => {
+    const card = document.createElement('div');
+    card.className = 'product-card';
+    card.innerHTML = `
+      <img src="${product.image}" alt="${product.title}" class="product-image" loading="lazy">
+      <div class="product-info">
+        <h3 class="product-title">${product.title}</h3>
+        <p class="product-description">${product.description}</p>
+        <div class="product-price">${product.price}</div>
+      </div>
+      ${product.tags.includes('hit') ? '<div class="badge">Хит</div>' : 
+        product.tags.includes('new') ? '<div class="badge">Новинка</div>' : ''}
+    `;
+    
+    card.addEventListener('click', () => openModal(product));
+    grid.appendChild(card);
   });
 }
 
-// Объект с данными о мебели
-const furnitureData = {
-  'corner-sofa': {
-    img: 'https://cidien.lazurit.com/images/unsafe/fit-in/2000x2000/upload.lazurit.com/upload/iblock/d4f/88ga3kwgv8fxhmfz0ukisbl2jaclehkq/florida2_MaKHKH_560.jpg',
-    description: 'Угловой диван — удобное решение для гостиной.'
-  },
-  'convertible-sofa': {
-    img: 'https://avatars.mds.yandex.net/i?id=523c2a5fa20314e77cc3c20ff87b2831_l-4450142-images-thumbs&n=13',
-    description: 'Раскладной диван для гостиной и спальни.'
-  },
-  'classic-sofa': {
-    img: 'https://i.ebayimg.com/images/g/v9UAAOSwMb9kUj0~/s-l1600.jpg',
-    description: 'Классический диван для уютной гостиной.'
-  },
-  'sliding-wardrobe': {
-    img: 'https://mkmgroup.ru/d/shk103.jpg',
-    description: 'Шкаф-купе с зеркалами.'
-  },
-  'classic-wardrobe': {
-    img: 'https://irice.ru/files/products/7/f/e/7fe633f3dec803ed575efd4272aca87e.jpeg',
-    description: 'Классический шкаф для спальни.'
-  },
-  'builtin-wardrobe': {
-    img: 'https://mkmgroup.ru/thumb/2/6yPUvKunUOysgIlJmrpmVw/1280r/d/vstroennye-shkafy-kupe-20.jpg',
-    description: 'Встроенный шкаф-купе для экономии пространства.'
-  },
-  'dining-table': {
-    img: 'https://avatars.mds.yandex.net/get-mpic/4219828/img_id416056959024383647.jpeg/orig',
-    description: 'Обеденный стол для семейных ужинов.'
-  },
-  'office-table': {
-    img: 'https://i.pinimg.com/originals/c0/c6/a9/c0c6a9b0e97c990ef7337ae2a9a591a9.jpg',
-    description: 'Офисный стол для работы.'
-  },
-  'coffee-table': {
-    img: 'https://cdn1.ozone.ru/s3/multimedia-o/c600/6652991760.jpg',
-    description: 'Журнальный столик для гостиной.'
-  },
-  'office-chair': {
-    img: 'https://m.media-amazon.com/images/I/8100JBXG1dL._AC_UF894,1000_QL80_.jpg',
-    description: 'Комфортный офисный стул.'
-  },
-  'dining-chair': {
-    img: 'https://i.pinimg.com/736x/bb/50/1f/bb501fa0fe30ebc4994607f7156c387d.jpg',
-    description: 'Обеденный стул для кухни.'
-  },
-  'armchair': {
-    img: 'https://goods-photos.static1-sima-land.com/items/6449676/2/1600.jpg?v=1639140803',
-    description: 'Удобное кресло для отдыха.'
-  },
-  'single-bed': {
-    img: 'https://cdn1.ozone.ru/s3/multimedia-r/6790171851.jpg',
-    description: 'Односпальная кровать для спальни.'
-  },
-  'double-bed': {
-    img: 'https://avatars.mds.yandex.net/i?id=3106ac273af649e4dc7fa4aceba1fa6b5178ffd3-11499518-images-thumbs&n=13',
-    description: 'Двуспальная кровать для семьи.'
-  },
-  'bunk-bed': {
-    img: 'https://roomester.ru/wp-content/uploads/2018/06/dvuhyarusnaya-krovat-v-interere-48-25.jpg',
-    description: 'Двухъярусная кровать для детской.'
+// Открытие модального окна
+function openModal(product) {
+  const modal = document.getElementById('product-modal');
+  document.getElementById('modal-image').src = product.image;
+  document.getElementById('modal-image').alt = product.title;
+  document.getElementById('modal-title').textContent = product.title;
+  document.getElementById('modal-price').textContent = product.price;
+  document.getElementById('modal-description').textContent = product.description;
+  
+  const badge = document.getElementById('modal-badge');
+  if (product.tags.includes('hit')) {
+    badge.textContent = 'Хит';
+    badge.style.display = 'block';
+  } else if (product.tags.includes('new')) {
+    badge.textContent = 'Новинка';
+    badge.style.display = 'block';
+  } else if (product.tags.includes('premium')) {
+    badge.textContent = 'Премиум';
+    badge.style.display = 'block';
+  } else {
+    badge.style.display = 'none';
   }
-};
+  
+  modal.classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
 
-function showFurniture(type) {
-  const container = document.getElementById('furniture-grid');
-  container.innerHTML = '';
+// Закрытие модального окна
+function closeModal() {
+  document.getElementById('product-modal').classList.remove('show');
+  document.body.style.overflow = '';
+}
 
-  if (furnitureData[type]) {
-    const data = furnitureData[type];
-
-    // Создаем плитку
-    const tile = document.createElement('div');
-    tile.className = 'tile';
-
-    // Изображение
-    const img = document.createElement('img');
-    img.src = data.img;
-    tile.appendChild(img);
-
-    // Информация
-    const info = document.createElement('div');
-    info.className = 'tile-info';
-    info.textContent = data.description;
-    tile.appendChild(info);
-
-    // Добавляем обработчик клика для отображения всплывающего окна
-    tile.addEventListener('click', (e) => {
-      showPopup(e.pageX, e.pageY, data.description);
-    });
-
-    container.appendChild(tile);
+// Переключение меню
+function toggleMenu(type) {
+  const submenu = document.getElementById(`${type}-submenu`);
+  const menuItem = document.querySelector(`.menu-item[onclick="toggleMenu('${type}')"]`);
+  
+  if (submenu.classList.contains('show')) {
+    submenu.classList.remove('show');
+    menuItem.classList.remove('active');
+  } else {
+    document.querySelectorAll('.submenu').forEach(sm => sm.classList.remove('show'));
+    document.querySelectorAll('.menu-item').forEach(mi => mi.classList.remove('active'));
+    
+    submenu.classList.add('show');
+    menuItem.classList.add('active');
   }
 }
 
-// Всплывающее окно
-function showPopup(x, y, text) {
-  const popup = document.getElementById('popup');
-  popup.style.left = x + 'px';
-  popup.style.top = y + 'px';
-  popup.innerHTML = text;
-  popup.style.display = 'block';
-
-  // Спрятать через 3 секунды
-  clearTimeout(popup.timeout);
-  popup.timeout = setTimeout(() => {
-    popup.style.display = 'none';
-  }, 3000);
+// Фильтрация товаров по категории
+function filterProducts(categoryId) {
+  document.querySelectorAll('.filter-tag').forEach(tag => tag.classList.remove('active'));
+  event.target.classList.add('active');
+  
+  if (categoryId === 'all') {
+    renderProducts(products);
+    return;
+  }
+  
+  const filtered = products.filter(p => p.id === categoryId);
+  renderProducts(filtered.length ? filtered : products);
 }
 
-// Закрытие всплывающего при клике вне
-document.addEventListener('click', (e) => {
-  const popup = document.getElementById('popup');
-  if (!popup.contains(e.target) && e.target.className !== 'tile' && e.target.closest('.tile') === null) {
-    popup.style.display = 'none';
+// Фильтрация по тегам
+function filterByTag(tag) {
+  document.querySelectorAll('.filter-tag').forEach(t => t.classList.remove('active'));
+  event.target.classList.add('active');
+  
+  if (tag === 'all') {
+    renderProducts(products);
+    return;
+  }
+  
+  const filtered = products.filter(p => p.tags.includes(tag));
+  renderProducts(filtered.length ? filtered : products);
+}
+
+// Закрытие модального окна при клике вне его
+document.addEventListener('click', function(e) {
+  const modal = document.getElementById('product-modal');
+  if (e.target === modal) {
+    closeModal();
+  }
+});
+
+// Закрытие модального окна по ESC
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    closeModal();
   }
 });
 </script>
