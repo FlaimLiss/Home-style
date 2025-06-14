@@ -16,31 +16,94 @@
     },
     {
       "id": 3,
-      "name": "Шкафы-купе",
-      "slug": "sliding-wardrobes",
+      "name": "Классические диваны",
+      "slug": "classic-sofas",
       "count": 9,
-      "icon": "wardrobe"
+      "icon": "sofa-classic"
     },
     {
       "id": 4,
+      "name": "Шкафы-купе",
+      "slug": "sliding-wardrobes",
+      "count": 9,
+      "icon": "wardrobe-sliding"
+    },
+    {
+      "id": 5,
+      "name": "Классические шкафы",
+      "slug": "classic-wardrobes",
+      "count": 9,
+      "icon": "wardrobe-classic"
+    },
+    {
+      "id": 6,
+      "name": "Встроенные шкафы",
+      "slug": "built-in-wardrobes",
+      "count": 9,
+      "icon": "wardrobe-built-in"
+    },
+    {
+      "id": 7,
       "name": "Обеденные столы",
       "slug": "dining-tables",
       "count": 9,
       "icon": "table-dining"
     },
     {
-      "id": 5,
-      "name": "Офисные кресла",
-      "slug": "office-armchairs",
+      "id": 8,
+      "name": "Офисные столы",
+      "slug": "office-tables",
+      "count": 9,
+      "icon": "table-office"
+    },
+    {
+      "id": 9,
+      "name": "Журнальные столики",
+      "slug": "coffee-tables",
+      "count": 9,
+      "icon": "table-coffee"
+    },
+    {
+      "id": 10,
+      "name": "Офисные стулья",
+      "slug": "office-chairs",
       "count": 9,
       "icon": "chair-office"
     },
     {
-      "id": 6,
+      "id": 11,
+      "name": "Кухонные стулья",
+      "slug": "kitchen-chairs",
+      "count": 9,
+      "icon": "chair-kitchen"
+    },
+    {
+      "id": 12,
+      "name": "Офисные кресла",
+      "slug": "office-armchairs",
+      "count": 9,
+      "icon": "armchair-office"
+    },
+    {
+      "id": 13,
+      "name": "Односпальные кровати",
+      "slug": "single-beds",
+      "count": 9,
+      "icon": "bed-single"
+    },
+    {
+      "id": 14,
       "name": "Двуспальные кровати",
       "slug": "double-beds",
       "count": 9,
-      "icon": "bed-queen"
+      "icon": "bed-double"
+    },
+    {
+      "id": 15,
+      "name": "Двухъярусные кровати",
+      "slug": "bunk-beds",
+      "count": 9,
+      "icon": "bed-bunk"
     }
   ]
 }
