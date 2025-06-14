@@ -349,6 +349,21 @@ body {
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   }
 }
+    .loading-placeholder {
+    text-align: center;
+    padding: 40px;
+}
+
+.loading-spinner {
+    font-size: 3rem;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+.loading-placeholder p {
+    font-size: 1.2rem;
+    color: #555;
+}
 .category-card {
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -538,6 +553,12 @@ body {
   <section class="furniture">
     <h1 class="furniture__title">Каталог мебели</h1>
     <div class="furniture__items" id="catalog-container">
+         <div class="loading-placeholder">
+        <div class="loading-spinner">
+            <i class="fas fa-spinner fa-spin"></i>
+        </div>
+        <p>Загрузка каталога...</p>
+    </div>
 </section>
   
     <div class="menu-item active" onclick="toggleMenu('sofa')">
