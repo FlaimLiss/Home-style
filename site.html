@@ -521,9 +521,12 @@ body {
   </div>
 </div>
 
-<div class="container">
-  <div class="sidebar">
-    <div class="menu-title">Категории мебели</div>
+<section class="furniture">
+  <div class="container">
+    <h1 class="furniture__title">Каталог мебели</h1>
+    <div class="furniture__items"></div>
+  </div>
+</section>
     
     <div class="menu-item active" onclick="toggleMenu('sofa')">
       <span>Диваны</span>
@@ -591,8 +594,6 @@ body {
     <div class="products-grid" id="products-grid">
       <!-- Товары будут загружены через JavaScript -->
     </div>
-  </div>
-</div>
 
 <!-- Модальное окно -->
 <div class="modal" id="product-modal">
@@ -611,107 +612,6 @@ body {
 </div>
 
 <script>
-// Данные о товарах
-const products = [
-  {
-    id: 'corner-sofa',
-    title: 'Угловой диван "Милан"',
-    description: 'Современный угловой диван с механизмом трансформации и ящиком для белья',
-    price: '45 990 ₽',
-    image: 'https://mebelvia.ru/upload/iblock/0e9/0e9e8a4d1b6f2e8e5f4d3c2b1a0f9e8d.jpg',
-    category: 'sofa',
-    tags: ['hit']
-  },
-  {
-    id: 'convertible-sofa',
-    title: 'Диван "Барселона"',
-    description: 'Раскладной диван с ортопедическим матрасом, механизм "еврокнижка"',
-    price: '32 490 ₽',
-    image: 'https://mebelvia.ru/upload/iblock/1e9/1e9e8a4d1b6f2e8e5f4d3c2b1a0f9e8d.jpg',
-    category: 'sofa',
-    tags: ['new']
-  },
-  {
-    id: 'classic-sofa',
-    title: 'Диван "Классик"',
-    description: 'Элегантный диван в классическом стиле с деревянными ножками',
-    price: '38 750 ₽',
-    image: 'https://mebelvia.ru/upload/iblock/2e9/2e9e8a4d1b6f2e8e5f4d3c2b1a0f9e8d.jpg',
-    category: 'sofa',
-    tags: []
-  },
-  {
-    id: 'sliding-wardrobe',
-    title: 'Шкаф-купе "Гламур"',
-    description: 'Вместительный шкаф-купе с зеркальными дверями и внутренней подсветкой',
-    price: '67 800 ₽',
-    image: 'https://mebelvia.ru/upload/iblock/3e9/3e9e8a4d1b6f2e8e5f4d3c2b1a0f9e8d.jpg',
-    category: 'wardrobe',
-    tags: ['premium']
-  },
-  {
-    id: 'dining-table',
-    title: 'Стол обеденный "Лофт"',
-    description: 'Деревянный стол на металлическом каркасе, размер 160×90 см',
-    price: '24 990 ₽',
-    image: 'https://mebelvia.ru/upload/iblock/4e9/4e9e8a4d1b6f2e8e5f4d3c2b1a0f9e8d.jpg',
-    category: 'table',
-    tags: ['hit']
-  },
-  {
-    id: 'office-chair',
-    title: 'Кресло офисное "Эрго"',
-    description: 'Эргономичное офисное кресло с регулировкой высоты и подлокотников',
-    price: '15 490 ₽',
-    image: 'https://mebelvia.ru/upload/iblock/5e9/5e9e8a4d1b6f2e8e5f4d3c2b1a0f9e8d.jpg',
-    category: 'chair',
-    tags: ['sale']
-  },
-  {
-    id: 'double-bed',
-    title: 'Кровать "Гранд"',
-    description: 'Двуспальная кровать с мягким изголовьем и ящиками для хранения',
-    price: '52 300 ₽',
-    image: 'https://mebelvia.ru/upload/iblock/6e9/6e9e8a4d1b6f2e8e5f4d3c2b1a0f9e8d.jpg',
-    category: 'bed',
-    tags: ['new', 'premium']
-  }
-];
-
-// Инициализация страницы
-document.addEventListener('DOMContentLoaded', function() {
-  renderProducts(products);
-});
-
-// Рендер товаров
-function renderProducts(productsToRender) {
-  const grid = document.getElementById('products-grid');
-  grid.innerHTML = '';
-  
-  if (productsToRender.length === 0) {
-    grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;">Товары не найдены</p>';
-    return;
-  }
-  
-  productsToRender.forEach(product => {
-    const card = document.createElement('div');
-    card.className = 'product-card';
-    card.innerHTML = `
-      <img src="${product.image}" alt="${product.title}" class="product-image" loading="lazy">
-      <div class="product-info">
-        <h3 class="product-title">${product.title}</h3>
-        <p class="product-description">${product.description}</p>
-        <div class="product-price">${product.price}</div>
-      </div>
-      ${product.tags.includes('hit') ? '<div class="badge">Хит</div>' : 
-        product.tags.includes('new') ? '<div class="badge">Новинка</div>' : ''}
-    `;
-    
-    card.addEventListener('click', () => openModal(product));
-    grid.appendChild(card);
-  });
-}
-
 // Открытие модального окна
 function openModal(product) {
   const modal = document.getElementById('product-modal');
