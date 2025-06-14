@@ -1,6 +1,6 @@
 // Конфигурация путей
 const DATA_PATH = 'data/';
-const IMG_PATH = 'assets/images/';
+const IMG_PATH = 'assets/images/furniture/';
 
 // 1. Загрузка данных категорий
 async function loadCategories() {
